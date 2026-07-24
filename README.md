@@ -7,84 +7,84 @@
 ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 ![Dependencies](https://img.shields.io/badge/Dependencies-Vault%20%7C%20PlaceholderAPI-yellow?style=for-the-badge)
 
-**Giải pháp tổ chức cuộc thi nông sản & hệ thống nông sản đột biến chuẩn phong cách *Hypixel Jacob's Contest* hàng đầu cho Server Minecraft của bạn!**
+**The ultimate Hypixel Jacob's Contest-style farming event & crop mutation plugin for your Minecraft server!**
 
-[Tính Năng](#-tính-năng-nổi-bật) • [Cài Đặt](#-hướng-dẫn-cài-đặt) • [Lệnh & Phân Quyền](#-lệnh--phân-quyền) • [Placeholders](#-tích-hợp-placeholderapi) • [Cấu Hình](#-cấu-hình)
+[Features](#-key-features) • [Installation](#-installation-guide) • [Commands & Permissions](#-commands--permissions) • [Placeholders](#-placeholderapi-integration) • [Compatibility](#-compatibility)
 
 ---
 
 </div>
 
-## 🌟 Tính Năng Nổi Bật
+## 🌟 Key Features
 
-### 🏆 1. Hệ Thống Cuộc Thi Nông Sản Tự Động (Farm Contest)
-* **Xoay tua tự động:** Tự động bắt đầu/kết thúc cuộc thi và chọn ngẫu nhiên các loại nông sản (Mía, Xương rồng, Bí ngô, Dưa hấu, Lúa mì...) theo lịch trình.
-* **Bảng xếp hạng thời gian thực:** Tính điểm, cập nhật thứ hạng và trả thưởng chính xác tuyệt đối cho từng người chơi.
-* **Giao diện BossBar trực quan:** Hiển thị thời gian đếm ngược và trạng thái điểm số ngay trên màn hình.
-* **Chống gian lận (Anti-Cheat) thông minh:** Tự động ghi nhớ các khối do người chơi tự đặt để ngăn chặn việc đặt xuống - phá ra lấy điểm vô hạn.
-
----
-
-### 🧬 2. Nông Sản Đột Biến (Mutation System) & Shop GUI
-* **Đột biến ngẫu nhiên:** Thu hoạch nông sản có tỷ lệ nhận được nông sản đột biến với các thuộc tính siêu hiếm và hệ số nhân điểm (Multiplier) cực khủng.
-* **Phụ thuộc Biome:** Một số loại đột biến chỉ xuất hiện ở các vùng sinh thái (Biome) nhất định, khuyến khích người chơi khám phá thế giới.
-* **Cửa hàng Đột Biến (Mutation Shop):** Giao diện GUI đẹp mắt cho phép người chơi mua bán, trao đổi và nâng cấp các loại hạt giống/nông sản đột biến.
+### 🏆 1. Automated Farming Contest System (Farm Contest)
+* **Automatic Rotation:** Automatically starts/ends contests and randomly selects crops (Sugar Cane, Cactus, Pumpkin, Melon, Wheat...) on a scheduled timer.
+* **Real-time Leaderboard:** Calculates scores, updates rankings, and distributes rewards with absolute accuracy for every player.
+* **Intuitive BossBar Display:** Displays a live countdown timer and current score progress directly on screen.
+* **Smart Anti-Cheat:** Tracks and remembers player-placed blocks to prevent infinite point exploits from placing and breaking the same crop.
 
 ---
 
-### 💾 3. Lưu Trữ Dữ Liệu & Tích Hợp Linh Hoạt
-* **Đa nền tảng Database:** Hỗ trợ **SQLite** (mặc định, không cần cài đặt thêm).
-* **Đồng bộ mượt mà:** Tự động tải/lưu dữ liệu người chơi khi Tham gia (Join) hoặc Thoát (Quit) server mà không gây lag.
-* **Tích hợp Vault:** Hỗ trợ thưởng tiền trực tiếp vào tài khoản ngân hàng của người chơi.
-* **Tích hợp PlaceholderAPI:** Dễ dàng đưa điểm số, thứ hạng lên Scoreboard, Tablist, Hologram hoặc Chat format.
+### 🧬 2. Mutation System & Shop GUI
+* **Random Mutations:** Harvesting crops gives a chance to yield mutated crops with ultra-rare attributes and massive score multipliers.
+* **Biome Dependence:** Certain mutation types only appear in specific biomes, encouraging players to explore the world.
+* **Mutation Shop:** Sleek GUI interface allowing players to buy, sell, trade, and upgrade mutated seeds/crops.
 
 ---
 
-## 🛠 Hướng Dẫn Cài Đặt
-
-1. Tải file `FarmContest-2.0.0.jar` mới nhất ở mục **Releases**.
-2. Đặt file `.jar` vào thư mục `/plugins/` của máy chủ.
-3. *(Khuyên dùng)* Cài đặt thêm các plugin hỗ trợ:
-   * **[Vault](https://www.spigotmc.org/resources/vault.3431/)** (Để thưởng tiền).
-   * **[PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)** (Để hiển thị thông số lên Scoreboard/Tab).
-4. Khởi động lại Server để plugin tự tạo file cấu hình.
+### 💾 3. Data Storage & Flexible Integrations
+* **Cross-Platform Database:** Supports **SQLite** (default, zero extra setup required).
+* **Seamless Sync:** Automatically loads/saves player data on Join and Quit without causing server lag.
+* **Vault Integration:** Reward players with in-game money directly into their balance upon winning.
+* **PlaceholderAPI Integration:** Effortlessly display scores and ranks on Scoreboards, Tablists, Holograms, or Chat formats.
 
 ---
 
-## 📜 Lệnh & Phân Quyền
+## 🛠 Installation Guide
 
-Lệnh chính: `/farmcontest` hoặc lệnh tắt `/fc`
+1. Download the latest `FarmContest-2.0.0.jar` file from the **Releases** section.
+2. Drop the `.jar` file into your server's `/plugins/` directory.
+3. *(Recommended)* Install optional dependency plugins:
+   * **[Vault](https://www.spigotmc.org/resources/vault.3431/)** (For economy rewards).
+   * **[PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)** (For displaying stats on Scoreboards/Tab).
+4. Restart your server to generate the default configuration files.
 
-| Lệnh | Mô tả | Phân quyền (Permission) |
+---
+
+## 📜 Commands & Permissions
+
+Main command: `/farmcontest` or alias `/fc`
+
+| Command | Description | Permission |
 | :--- | :--- | :--- |
-| `/fc help` | Xem danh sách hướng dẫn lệnh | `farmcontest.use` |
-| `/fc status` | Xem trạng thái cuộc thi đang diễn ra & điểm cá nhân | `farmcontest.use` |
-| `/fc shop` | Mở Cửa Hàng Nông Sản Đột Biến | `farmcontest.use` |
-| `/fc top` | Xem Bảng Xếp Hạng cuộc thi hiện tại | `farmcontest.use` |
-| `/fc start <loại_cây>` | *(Admin)* Cưỡng chế bắt đầu cuộc thi | `farmcontest.admin` |
-| `/fc stop` | *(Admin)* Dừng cuộc thi ngay lập tức | `farmcontest.admin` |
-| `/fc reload` | *(Admin)* Tải lại toàn bộ cấu hình plugin | `farmcontest.admin` |
+| `/fc help` | View the list of available commands | `farmcontest.use` |
+| `/fc status` | View active contest status & personal score | `farmcontest.use` |
+| `/fc shop` | Open the Mutation Crops Shop | `farmcontest.use` |
+| `/fc top` | View the current contest leaderboard | `farmcontest.use` |
+| `/fc start <crop>` | *(Admin)* Forcefully start a farming contest | `farmcontest.admin` |
+| `/fc stop` | *(Admin)* Instantly stop the current contest | `farmcontest.admin` |
+| `/fc reload` | *(Admin)* Reload all plugin configuration files | `farmcontest.admin` |
 
 ---
 
-## 📊 Tích Hợp PlaceholderAPI
+## 📊 PlaceholderAPI Integration
 
-Sử dụng các placeholder sau trong Scoreboard (FeatherBoard, TAB...), Chat hoặc Hologram:
+Use the following placeholders in your Scoreboards (FeatherBoard, TAB...), Chat, or Holograms:
 
-* `%farmcontest_status%` — Trạng thái cuộc thi (*Đang diễn ra / Đã kết thúc*).
-* `%farmcontest_time_remaining%` — Thời gian còn lại của cuộc thi.
-* `%farmcontest_crop%` — Loại nông sản đang thi đấu trong vòng này.
-* `%farmcontest_score%` — Điểm số hiện tại của người chơi.
-* `%farmcontest_position%` — Thứ hạng hiện tại của người chơi trong BXH.
+* `%farmcontest_status%` — Contest status (*Active / Finished*).
+* `%farmcontest_time_remaining%` — Remaining time of the active contest.
+* `%farmcontest_crop%` — Crop type featured in the current round.
+* `%farmcontest_score%` — Player's current contest score.
+* `%farmcontest_position%` — Player's current position on the leaderboard.
 
 ---
 
-## 🖥 Khả Năng Tương Thích
+## 🖥 Compatibility
 
-* **Phiên bản Minecraft hỗ trợ:** `1.20.4` $
-ightarrow$ `1.21.x` (và các bản nâng cấp tương lai).
+* **Supported Minecraft Versions:** `1.20.4` $
+ightarrow$ `1.21.x` (and future updates).
 * **Software:** Paper, Spigot, Purpur, Leaf, Folia...
-* **Lưu ý:** Plugin được viết hoàn toàn bằng API chuẩn, không sử dụng NMS/Reflection nên cực kỳ ổn định và không lo bị lỗi khi Server cập nhật bản Minecraft mới!
+* **Note:** Built entirely on standard API with no NMS/Reflection dependencies, making it extremely stable and safe across future Minecraft updates!
 
 ---
 
