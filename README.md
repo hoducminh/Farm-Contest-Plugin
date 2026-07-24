@@ -33,7 +33,7 @@
 ---
 
 ### 💾 3. Lưu Trữ Dữ Liệu & Tích Hợp Linh Hoạt
-* **Đa nền tảng Database:** Hỗ trợ cả **SQLite** (mặc định, không cần cài đặt thêm) và **MySQL** (cho cụm server lớn/Network).
+* **Đa nền tảng Database:** Hỗ trợ **SQLite** (mặc định, không cần cài đặt thêm).
 * **Đồng bộ mượt mà:** Tự động tải/lưu dữ liệu người chơi khi Tham gia (Join) hoặc Thoát (Quit) server mà không gây lag.
 * **Tích hợp Vault:** Hỗ trợ thưởng tiền trực tiếp vào tài khoản ngân hàng của người chơi.
 * **Tích hợp PlaceholderAPI:** Dễ dàng đưa điểm số, thứ hạng lên Scoreboard, Tablist, Hologram hoặc Chat format.
