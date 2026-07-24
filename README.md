@@ -82,5 +82,5 @@ Sử dụng các placeholder sau trong Scoreboard (FeatherBoard, TAB...), Chat h
 ## 🖥 Khả Năng Tương Thích
 
 * **Phiên bản Minecraft hỗ trợ:** `1.20.4` $\rightarrow$ `1.21.x` (và các bản nâng cấp tương lai).
-* **Software:** Paper, Spigot, Purpur, Leaf, Folia...
-* **Lưu ý:** Plugin được viết hoàn toàn bằng API chuẩn, không sử dụng NMS/Reflection nên cực kỳ ổn định và không lo bị lỗi khi Server cập nhật bản Minecraft mới!
+* **Software:** Paper, Spigot, Purpur
+* **Lưu ý:** Cần có Vault và Economy plugin bất kì.
