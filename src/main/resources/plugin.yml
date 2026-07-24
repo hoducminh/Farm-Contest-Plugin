@@ -1,0 +1,32 @@
+name: FarmContest
+version: 2.0.0
+main: com.farmcontest.FarmContest
+api-version: 1.20
+author: _MintBae_
+description: Farm contest plugin similar to Hypixel Jacob contest
+softdepend: [Vault, PlaceholderAPI]
+
+commands:
+  farmcontest:
+    description: Main FarmContest command
+    usage: /farmcontest <subcommand>
+    aliases: [fc]
+    permission: farmcontest.use
+  fc:
+    description: Short alias for FarmContest command
+    usage: /fc <subcommand>
+    permission: farmcontest.use
+
+permissions:
+  farmcontest.use:
+    description: Basic permission to use FarmContest commands
+    default: true
+  farmcontest.admin:
+    description: Admin permission for FarmContest
+    default: op
+  farmcontest.info.other:
+    description: Permission to view other players' info
+    default: op
+  farmcontest.profile.other:
+    description: Permission to view other players' farm profile
+    default: op
