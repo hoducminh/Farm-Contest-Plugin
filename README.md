@@ -7,13 +7,19 @@
 ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 ![Dependencies](https://img.shields.io/badge/Dependencies-Vault%20%7C%20PlaceholderAPI-yellow?style=for-the-badge)
 
-**Giải pháp tổ chức cuộc thi nông sản & hệ thống nông sản đột biến chuẩn phong cách *Hypixel Jacob's Contest* hàng đầu cho Server Minecraft của bạn!**
-
-[Tính Năng](#-tính-năng-nổi-bật) • [Cài Đặt](#-hướng-dẫn-cài-đặt) • [Lệnh & Phân Quyền](#-lệnh--phân-quyền) • [Placeholders](#-tích-hợp-placeholderapi) • [Cấu Hình](#-cấu-hình)
+</div>
 
 ---
 
-</div>
+<details open>
+  <summary><b>🇻🇳 Tiếng Việt</b> (Click to expand / Bấm để mở)</summary>
+  <br>
+
+**Giải pháp tổ chức cuộc thi nông sản & hệ thống nông sản đột biến chuẩn phong cách *Hypixel Jacob's Contest* hàng đầu cho Server Minecraft của bạn!**
+
+[Tính Năng](#-1-hệ-thống-cuộc-thi-nông-sản-tự-động-farm-contest) • [Cài Đặt](#-hướng-dẫn-cài-đặt) • [Lệnh & Phân Quyền](#-lệnh--phân-quyền) • [Placeholders](#-tích-hợp-placeholderapi) • [Tương Thích](#-khả-năng-tương-thích)
+
+---
 
 ## 🌟 Tính Năng Nổi Bật
 
@@ -81,6 +87,90 @@ Sử dụng các placeholder sau trong Scoreboard (FeatherBoard, TAB...), Chat h
 
 ## 🖥 Khả Năng Tương Thích
 
-* **Phiên bản Minecraft hỗ trợ:** `1.20.4` $\rightarrow$ `1.21.x` (và các bản nâng cấp tương lai).
+* **Phiên bản Minecraft hỗ trợ:** `1.20.4` -> `1.21.x` (và các bản nâng cấp tương lai).
 * **Software:** Paper, Spigot, Purpur
-* **Lưu ý:** Cần có Vault và Economy plugin bất kì.
+* **Lưu ý:** Cần có Vault và Economy plugin bất kỳ.
+
+</details>
+
+<details>
+  <summary><b>🇺🇸 English</b> (Click to expand / Bấm để mở)</summary>
+  <br>
+
+**The ultimate *Hypixel Jacob's Contest* style farming contest & mutated crop system solution for your Minecraft Server!**
+
+[Features](#-key-features) • [Installation](#-installation-guide) • [Commands & Permissions](#-commands--permissions) • [Placeholders](#-placeholderapi-integration) • [Compatibility](#-compatibility)
+
+---
+
+## 🌟 Key Features
+
+### 🏆 1. Automated Farming Contest System (Farm Contest)
+* **Auto-rotation:** Automatically starts/ends contests and randomly selects crops (Sugar Cane, Cactus, Pumpkin, Melon, Wheat...) based on a schedule.
+* **Real-time Leaderboard:** Calculates scores, updates rankings, and dispenses rewards with absolute precision.
+* **Intuitive BossBar UI:** Displays countdown timer and current score directly on screen.
+* **Smart Anti-Cheat:** Remembers player-placed blocks to prevent endless place-and-break exploits.
+
+---
+
+### 🧬 2. Mutation System & Shop GUI
+* **Random Mutations:** Harvesting crops has a chance to yield mutated crops with ultra-rare attributes and massive score multipliers.
+* **Biome Dependent:** Certain crop mutations only spawn in specific biomes, encouraging world exploration.
+* **Mutation Shop:** Clean GUI allowing players to trade, buy, sell, and upgrade mutated seeds and crops.
+
+---
+
+### 💾 3. Data Storage & Flexible Integration
+* **Cross-platform Database:** Built-in **SQLite** support (default, zero extra setup needed).
+* **Smooth Synchronization:** Automatically loads/saves player data on Join/Quit without causing server lag.
+* **Vault Integration:** Directly rewards money to players' economy accounts.
+* **PlaceholderAPI Integration:** Easily display scores and rankings on Scoreboard, Tablist, Hologram, or Chat format.
+
+---
+
+## 🛠 Installation Guide
+
+1. Download the latest `FarmContest-2.0.0.jar` from **Releases**.
+2. Drop the `.jar` file into your server's `/plugins/` folder.
+3. *(Recommended)* Install optional dependencies:
+   * **[Vault](https://www.spigotmc.org/resources/vault.3431/)** (For monetary rewards).
+   * **[PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)** (For displaying stats on Scoreboard/Tab).
+4. Restart your server to generate configuration files.
+
+---
+
+## 📜 Commands & Permissions
+
+Main command: `/farmcontest` or alias `/fc`
+
+| Command | Description | Permission |
+| :--- | :--- | :--- |
+| `/fc help` | View command help list | `farmcontest.use` |
+| `/fc status` | View active contest status & personal score | `farmcontest.use` |
+| `/fc shop` | Open the Mutated Crop Shop GUI | `farmcontest.use` |
+| `/fc top` | View current contest leaderboard | `farmcontest.use` |
+| `/fc start <crop>` | *(Admin)* Force-start a contest | `farmcontest.admin` |
+| `/fc stop` | *(Admin)* Immediately stop the current contest | `farmcontest.admin` |
+| `/fc reload` | *(Admin)* Reload all plugin configurations | `farmcontest.admin` |
+
+---
+
+## 📊 PlaceholderAPI Integration
+
+Use these placeholders in your Scoreboard (FeatherBoard, TAB...), Chat, or Hologram:
+
+* `%farmcontest_status%` — Contest status (*Ongoing / Ended*).
+* `%farmcontest_time_remaining%` — Time remaining in the current contest.
+* `%farmcontest_crop%` — Active crop type for the current round.
+* `%farmcontest_score%` — Player's current score.
+* `%farmcontest_position%` — Player's current position on the leaderboard.
+
+---
+
+## 🖥 Compatibility
+
+* **Supported Minecraft Versions:** `1.20.4` -> `1.21.x` (and future releases).
+* **Software:** Paper, Spigot, Purpur
+* **Note:** Requires Vault and any compatible Economy plugin.
+
+</details>
