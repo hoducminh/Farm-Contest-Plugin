@@ -1,0 +1,135 @@
+# ====================================================================================
+#   ______                     _____             _           _   
+#  |  ____|                   / ____|           | |         | |  
+#  | |__ __ _ _ __ _ __ ___  | |     ___  _ __  | |_ ___ ___| |_ 
+#  |  __/ _` | '__| '_ ` _ \ | |    / _ \| '_ \ | __/ _ \/ __| __|
+#  | | | (_| | |  | | | | | || |___| (_) | | | ||  __/\__ \ |_ 
+#  |_|  \__,_|_|  |_| |_| |_| \_____\___/|_| |_|\__\___||___/\__|
+#
+#                         ✦ MUTATION SETTINGS ✦
+# ------------------------------------------------------------------------------------
+#  [ENGLISH - MUTATION SETTINGS]
+#  This file contains configuration for crop mutation mechanics:
+#   • Crop mutation chance & rates (Mutation Rate).
+#   • List of crops eligible for mutation.
+#   • Activation conditions (Conditions: weather, tools, time, etc.).
+#  
+#  Enhance harvesting gameplay and add exciting surprises for players!
+# ====================================================================================
+settings:
+  enabled: true
+  global_chance: 0.03        # Mutation drop chance per valid harvest (fallback if a mutation has no specific "chance" set)
+
+  multi_mutation:
+    enabled: false            # false = only awards the single highest multiplier mutation triggered in a roll (economy-safe)
+                              # true  = stacks multipliers of ALL triggered mutations at once (can be very unbalanced)
+    crop_overrides:           # Override multi_mutation.enabled for specific crop types (optional)
+      PUMPKIN: true
+      MELON: true
+
+  weight:
+    min: 10.0
+    max: 200.0
+
+  weight_by_crop:             # Override weight range (kg) for specific crop types (optional)
+    PUMPKIN:
+      min: 50.0
+      max: 800.0
+    MELON:
+      min: 30.0
+      max: 400.0
+    WHEAT:
+      min: 1.0
+      max: 15.0
+    CARROT:
+      min: 1.0
+      max: 10.0
+    POTATO:
+      min: 1.0
+      max: 10.0
+    BEETROOT:
+      min: 1.0
+      max: 10.0
+    SUGAR_CANE:
+      min: 1.0
+      max: 8.0
+    CACTUS:
+      min: 1.0
+      max: 8.0
+
+shop:
+  rows: 3
+  base_price_per_kg: 50.0    # Default price ($/kg) applied to all crops
+
+  # Optional: override price per kg for specific crops.
+  # If a crop is not listed here → base_price_per_kg is used.
+  price_per_kg:
+    WHEAT: 40.0
+    CARROT: 45.0
+    POTATO: 45.0
+    PUMPKIN: 80.0
+    MELON: 70.0
+    SUGAR_CANE: 35.0
+    CACTUS: 35.0
+    NETHER_WART: 90.0
+    BEETROOT: 50.0
+
+# Define mutation types. "name" / "display" here are replacement values
+# for {mutation_name} / {mutation_display} in item lore (config.yml),
+# not full message strings.
+mutations:
+  giant:
+    name: "Giant"
+    display: "Giant Size"
+    multiplier: 1.5
+    chance: 0.05
+    available_crops: ["WHEAT", "CARROT", "POTATO", "PUMPKIN", "MELON", "BEETROOT"]
+    condition: "any"
+
+  golden:
+    name: "Golden"
+    display: "Radiant Golden"
+    multiplier: 2.0
+    chance: 0.03
+    available_crops: ["WHEAT", "CARROT", "POTATO", "PUMPKIN", "MELON", "SUGAR_CANE", "CACTUS", "BEETROOT"]
+    condition: "midday"
+
+  frozen:
+    name: "Frozen"
+    display: "Frost Crystal"
+    multiplier: 1.8
+    chance: 0.05
+    available_crops: ["WHEAT", "CARROT", "POTATO", "BEETROOT"]
+    condition: "midnight"
+
+  storm:
+    name: "Storm"
+    display: "Storm Power"
+    multiplier: 2.5
+    chance: 0.03
+    available_crops: ["SUGAR_CANE", "PUMPKIN", "MELON"]
+    condition: "storm"
+
+  rainbow:
+    name: "Rainbow"
+    display: "Rainbow"
+    multiplier: 50.0
+    chance: 0.001
+    available_crops: ["WHEAT", "CARROT", "POTATO", "PUMPKIN", "MELON", "SUGAR_CANE", "CACTUS", "BEETROOT"]
+    condition: "any"
+
+  wet:
+    name: "Wet"
+    display: "Wet"
+    multiplier: 2.0
+    chance: 0.1
+    available_crops: ["WHEAT", "CARROT", "POTATO", "BEETROOT"]
+    condition: "rain"
+
+  snow:
+    name: "Snow"
+    display: "Snowy"
+    multiplier: 10.0
+    chance: 0.05
+    available_crops: ["WHEAT", "CARROT", "POTATO", "BEETROOT"]
+    condition: "snow_biome"

@@ -1,0 +1,433 @@
+# ====================================================================================
+#   ______                     _____             _           _   
+#  |  ____|                   / ____|           | |         | |  
+#  | |__ __ _ _ __ _ __ ___  | |     ___  _ __  | |_ ___ ___| |_ 
+#  |  __/ _` | '__| '_ ` _ \ | |    / _ \| '_ \ | __/ _ \/ __| __|
+#  | | | (_| | |  | | | | | || |___| (_) | | | ||  __/\__ \ |_ 
+#  |_|  \__,_|_|  |_| |_| |_| \_____\___/|_| |_|\__\___||___/\__|
+#
+# ------------------------------------------------------------------------------------
+#  [PLUGIN INFORMATION]
+#  Version: 2.0.2-RELEASE (Reborn)
+#  This is the first plugin by _MintBae_, inspired by Jacob Contest and
+#  referencing logic from MiningContest by VoChiDanh.
+#  Created with the aim of bringing joy to crop harvesting.
+#  Thank you for using this plugin!
+# ====================================================================================
+#
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║  QUICK GUIDE                                                     ║
+# ║                                                                  ║
+# ║  There are 2 contest types:                                      ║
+# ║                                                                  ║
+# ║  [SINGLE]    Individual ranking, rewards by rank (top1/2/3)      ║
+# ║              → contest.community-scope: false                    ║
+# ║                                                                  ║
+# ║  [COMMUNITY] Whole server pools points, unlocks shared rewards    ║
+# ║              at milestones                                       ║
+# ║              → contest.community-scope: true                     ║
+# ║              → Configure rewards under "community" section below ║
+# ║                                                                  ║
+# ║  Both share: mob/farm mode, points, display, messages            ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+# ──────────────────────────────────────────────────────────────────
+# 1. CONTEST CORE
+# ──────────────────────────────────────────────────────────────────
+contest:
+  enabled: true
+  interval: "3h"            # Auto-start cycle (e.g., 30s, 15m, 3h)
+  duration: "15m"           # Contest duration
+  min-participation-points: 200   # Minimum points required to count as "participating"
+  mode: "farm"              # "farm" = harvest crops | "mob" = kill mobs
+  community-scope: false    # false = [SINGLE] Individual ranking
+                            # true  = [COMMUNITY] Server milestone pool
+
+  random-selection:
+    enabled: false          # true = randomly picks 1 of the 4 types below based on weight each contest
+                            # false = uses fixed "mode" + "community-scope" set above
+    weights:
+      mob-community: 1.0    # Set -1 if you don't want the system to select this type
+      mob-single: 1.0
+      farm-community: 1.0
+      farm-single: 1.0
+
+  crop-selection:
+    count: 3                # Number of randomly selected crop types per contest
+    chance_crop:             # Selection weight — higher = more likely to appear
+      WHEAT: 30
+      CARROT: 25
+      POTATO: 25
+      PUMPKIN: 15
+      MELON: 15
+      SUGAR_CANE: 10
+      CACTUS: 8
+      NETHER_WART: 5
+      BEETROOT: 20
+
+  mob-selection:
+    count: 3                # Randomly selected mob count (used when mode: mob only)
+    chance_mob:              # Mob selection weight
+      ZOMBIE: 30
+      SKELETON: 25
+      SPIDER: 25
+      CREEPER: 15
+      ENDERMAN: 5
+
+  mob-rate-limit:
+    window-millis: 1000
+    max-kills-per-window: 10
+
+# Points earned per harvested crop unit
+crop_point:
+  WHEAT: 10
+  CARROT: 8
+  POTATO: 8
+  PUMPKIN: 15
+  MELON: 15
+  SUGAR_CANE: 5
+  CACTUS: 5
+  NETHER_WART: 12
+  BEETROOT: 9
+
+# Points earned per mob kill (used when mode: mob)
+mob_point:
+  ZOMBIE: 5
+  SKELETON: 6
+  SPIDER: 6
+  CREEPER: 10
+  ENDERMAN: 20
+
+# ──────────────────────────────────────────────────────────────────
+# 2. [COMMUNITY] COMMUNITY MILESTONE REWARDS
+#    Only active when contest.community-scope: true
+#
+#    When the server's combined points reach "target", the listed
+#    reward commands run automatically for all online players.
+#
+#    Supported placeholders:
+#      {player} → each online player's name (command runs per player)
+#      {all}    → replaced with "@a" (for vanilla broadcast commands)
+#
+#    Example:
+#      reward:
+#        - "eco give {player} 5000"         ← Each player gets money
+#        - "broadcast &2Congratulations community!" ← Server broadcast
+# ──────────────────────────────────────────────────────────────────
+community:
+  milestones:
+    - target: 5000
+      reward:
+        - "broadcast &2[FarmContest] &aServer reached 5,000 points! Rewards are being granted!"
+        - "eco give {player} 3000"
+        - "give {player} wheat 16"
+    - target: 20000
+      reward:
+        - "broadcast &2[FarmContest] &aServer unlocked Sun God buff! Congratulations everyone!"
+        - "eco give {player} 10000"
+        - "give {player} diamond 2"
+
+# Display names for each crop type shown in messages
+crop_placeholder:
+  WHEAT: "Wheat"
+  CARROT: "Carrot"
+  POTATO: "Potato"
+  PUMPKIN: "Pumpkin"
+  MELON: "Melon"
+  SUGAR_CANE: "Sugar Cane"
+  CACTUS: "Cactus"
+  NETHER_WART: "Nether Wart"
+  BEETROOT: "Beetroot"
+
+# ──────────────────────────────────────────────────────────────────
+# 3. PLAYER JOIN NOTIFICATION
+# ──────────────────────────────────────────────────────────────────
+auto-notify-on-join: true
+auto-notify-message: "&2[FarmContest] &a🌾 Contest is ongoing! Today's crops: &e{crops}"
+
+# ──────────────────────────────────────────────────────────────────
+# 4. CONTEST DISPLAY (BossBar / Title / ActionBar)
+# ──────────────────────────────────────────────────────────────────
+display_contest:
+  bossbar:
+    enabled: true
+    text: "&2🌾 Farm Contest &7| &aCrops: &f{crops} &7| &aTime: &f{time}"
+    color: "GREEN"          # PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE
+    style: "SEGMENTED_10"   # SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+
+  title:
+    start:
+      enabled: true
+      text: "&2&l🌾 FARM CONTEST"
+      subtitle: "&aHarvest target crops to score points!"
+      fadeIn: 20
+      stay: 60
+      fadeOut: 20
+
+  actionbar:
+    score:
+      enabled: true
+      text: "&2+{points} pts &7({crop})"
+    countdown:
+      enabled: true
+      text: "&aTime remaining: &f{time}"
+
+# ──────────────────────────────────────────────────────────────────
+# 5. GENERAL MESSAGES (/fc COMMANDS, EVENT NOTIFICATIONS...)
+#
+#  Default prefix: &2[FarmContest]
+#  Color theme: green (&2, &a) + yellow (&e) = agriculture, nature
+# ──────────────────────────────────────────────────────────────────
+messages:
+  # --- Permissions & General Errors ---
+  no-permission: "&c[FarmContest] You do not have permission to use this command!"
+  player-only: "&c[FarmContest] Only players can use this command!"
+  invalid-player: "&c[FarmContest] Player not found!"
+  invalid-points: "&c[FarmContest] Invalid points entered!"
+  invalid-crop: "&c[FarmContest] Invalid crop type!"
+  invalid-mutation: "&c[FarmContest] Mutation '{mutation}' does not exist in mutation.yml!"
+
+  # --- Contest Lifecycle ---
+  contest-running: "&c[FarmContest] A contest is already running!"
+  contest-started: "&2[FarmContest] &aA new contest has been started!"
+  contest-stopped: "&2[FarmContest] &aThe current contest has been stopped!"
+  no-contest: "&c[FarmContest] There is no contest currently running!"
+  no-contest-for-points: "&c[FarmContest] Cannot modify points when no contest is active!"
+
+  start: "&2[FarmContest] &a🌾 Contest started! Today's crops: &e{crops}"
+  end: "&2[FarmContest] &a🌾 Contest ended! Thank you all for participating."
+
+  participate-reward: "&2[FarmContest] &aYou finished the contest with &e{points} points &aand received participation rewards!"
+  not-enough: "&c[FarmContest] You did not reach the minimum of &e{min-points} points &cto receive participation rewards."
+
+  next-contest: "&2[FarmContest] &aNext contest starts in: &e{time}"
+  next-contest-disabled: "&c[FarmContest] Contests are disabled in the configuration!"
+  next-contest-running: "&2[FarmContest] &a🌾 A contest is currently ongoing!"
+
+  # --- Points ---
+  points-reset: "&2[FarmContest] &aAll points have been reset!"
+  add-point: "&2[FarmContest] &aYou received &e{points} points&a!"
+  take-point: "&c[FarmContest] You lost &e{points} points&c!"
+  set-point: "&2[FarmContest] &aYour points have been set to &e{points}&a!"
+  admin-points-modified: "&2[FarmContest] &aSuccessfully {action} &e{points} points &afor player &e{player}"
+
+  # --- /fc info & /fc top ---
+  info-self: "&2[FarmContest] &aCurrent season points: &e{points}"
+  info-other: "&2[FarmContest] &aPoints of &e{player}&a: &e{points}"
+  top-header: "&2&l=== 🌾 CONTEST LEADERBOARD ==="
+  top-empty: "&7No players have participated yet."
+  top-entry: "{rank} &f{player} &7- &a{points} pts"
+  rank-1: "&a🥇"
+  rank-2: "&e🥈"
+  rank-3: "&f🥉"
+  rank-other: "&7#{rank}"
+
+  # --- /fc profile ---
+  profile-header: "&2&l══════ 🌾 Farmer Profile ══════"
+  profile-name: "&aName: &f{player}"
+  profile-total-contests: "&aTotal Contests Joined: &e{value}"
+  profile-top1: "&a🥇 1st Place: &e{value} times"
+  profile-top2: "&a🥈 2nd Place: &e{value} times"
+  profile-top3: "&a🥉 3rd Place: &e{value} times"
+  profile-harvests: "&aTotal Crops Harvested: &e{value}"
+  profile-mob-kills: "&aTotal Mobs Killed: &e{value}"
+  profile-medal-line: "&a{medal}: &e{count}"
+  profile-footer: "&2&l══════════════════════════════════"
+
+  # --- /fc shop ---
+  shop-player-only: "&c[FarmContest] Only players can open the shop!"
+  shop-vault-disabled: "&c[FarmContest] Mutation shop is disabled due to missing Vault/Economy plugin!"
+
+  # --- /fc autosell ---
+  #  Requires permission: farmcontest.autosell (default: true for all players)
+  autosell-enabled: "&2[FarmContest] &a🌿 Auto-sell mutated crops: &2ENABLED&a!"
+  autosell-disabled: "&c[FarmContest] 🌿 Auto-sell mutated crops: &4DISABLED&c!"
+  autosell-feature-disabled: "&c[FarmContest] Auto-sell feature has been disabled by an administrator."
+
+  # --- /fc mutation give ---
+  mutation-usage: "&c[FarmContest] Usage: /fc mutation give <player> <crop> <mutation> [weight_min] [weight_max]"
+  mutation-given: "&2[FarmContest] &aGave mutated crop &e{mutation} &ato player &e{player}"
+
+  # --- /fc mode ---
+  mode-usage: "&c[FarmContest] Usage: /fc mode <farm|mob> [community]"
+
+  # --- /fc add|take|set ---
+  points-usage: "&c[FarmContest] Usage: /fc {action} <player> <points> [silent:true/false]"
+
+  # --- /fc reload ---
+  reload-success: "&2[FarmContest] &aSuccessfully reloaded FarmContest & mutation configs!"
+
+# ──────────────────────────────────────────────────────────────────
+# 6. HELP (/fc help)
+# ──────────────────────────────────────────────────────────────────
+commands:
+  help:
+    - "&2&l=== 🌾 FARMCONTEST - COMMANDS ==="
+    - "&a/fc top &7- View current contest leaderboard"
+    - "&a/fc info [player] &7- Check your points or another player's"
+    - "&a/fc profile [player] &7- View farmer profile (contest history)"
+    - "&a/fc time &7- Check time until next contest"
+
+help-admin:
+  - "&c&l=== ADMIN COMMANDS ==="
+  - "&a/fc start &7- Force start a contest immediately"
+  - "&a/fc stop &7- Stop current contest"
+  - "&a/fc reset &7- Reset all points"
+  - "&a/fc reload &7- Reload plugin configuration"
+  - "&a/fc add <player> <points> [silent:true/false] &7- Add points"
+  - "&a/fc take <player> <points> [silent:true/false] &7- Take points"
+  - "&a/fc set <player> <points> [silent:true/false] &7- Set points"
+
+help-shop-line: "&a/fc shop &7- Open mutated crop market"
+help-mutation-line: "&a/fc mutation give <player> <crop> <mutation> [min_weight] [max_weight] &7- Give mutated crop"
+help-autosell-line: "&a/fc autosell &7- Toggle auto-selling mutated crops on harvest"
+
+# ──────────────────────────────────────────────────────────────────
+# 7. CONSOLE LOGS (Plugin Enable / Disable)
+# ──────────────────────────────────────────────────────────────────
+console-messages:
+  starting: "FarmContest v2.0.0 is starting..."
+  vault-not-found: "Vault plugin not found! /fc shop economy feature will be disabled."
+  papi-registered: "Successfully registered PlaceholderAPI extension!"
+  enabled: "FarmContest v2.0.0 has been enabled with Mutation & Shop systems!"
+  disabled: "FarmContest v2.0.0 has been disabled!"
+  contest-started-log: "Contest started with crops: {crops}{lucky}"
+  contest-ended-log: "Contest has ended"
+  db-connected: "Connected to SQLite database: {file}"
+  db-connect-error: "Could not connect to SQLite database: {error}"
+  db-table-error: "Could not create database tables: {error}"
+  db-closed: "Closed SQLite connection."
+  db-close-error: "Error while closing SQLite connection: {error}"
+  db-harvest-error: "Database error while incrementing harvest count: {error}"
+  db-result-error: "Database error while saving contest results: {error}"
+  db-profile-error: "Database error while fetching farmer profile: {error}"
+  db-medal-error: "Database error while awarding medal: {error}"
+  invalid-crop-warn: "Invalid crop type: {key}"
+  invalid-mob-warn: "Invalid mob/entity type: {key}"
+  invalid-material-warn: "Invalid item material at {path}: {entry}"
+  invalid-duration-warn: "Invalid time duration format: {value}"
+  data-save-error: "Could not save data file: {error}"
+  data-create-error: "Could not create data file: {error}"
+  data-invalid-uuid-warn: "Invalid UUID in data file: {key}"
+
+# ──────────────────────────────────────────────────────────────────
+# 8. MUTATED CROPS (MUTATION) — message & lore
+#    Mutation mechanics & chances per crop → configured in mutation.yml
+#    All player-facing display text        → placed here (config.yml)
+# ──────────────────────────────────────────────────────────────────
+mutation-messages:
+  default-mutation-name: "Mutation"
+  default-mutation-display: "Special"
+
+  broadcast-message: "&2[FarmContest] &a✨ You harvested a &e{mutation} {crop}&a with multiplier &ex{multiplier}&a!"
+
+  item-format:
+    name: "&2&l{mutation_name} {crop_display}"
+    lore:
+      - "&7Mutation Type: &e{mutation_display}"
+      - "&7Multiplier: &ex{multiplier}"
+      - "&7Weight: &e{weight} kg"
+      - "&7Owner: &e{owner}"
+      - ""
+      - "&8Sell at &7/fc shop"
+
+  shop:
+    menu-title: "&2[GUI] &aMutated Crops Market"
+    success-message: "&2[FarmContest] &aSuccessfully sold items for &e${money}&a!"
+    invalid-item-returned: "&c[FarmContest] Some invalid items were returned to your inventory."
+
+  autosell:
+    enabled: true              # Admin switch — set false to disable /fc autosell entirely
+    sold-message: "&2[FarmContest] &a✨ Auto-sold &7({crop}) &a+ &e${money}&a!"
+
+# ──────────────────────────────────────────────────────────────────
+# 9. LUCKY CROP & WEATHER BUFFS
+# ──────────────────────────────────────────────────────────────────
+event_modifiers:
+  lucky_crop:
+    enabled: true
+    chance: 0.05
+    multiplier: 2.0
+    drop_item: "GOLDEN_CARROT"
+    item_name: "&6✨ Golden Crop"
+    item_lore:
+      - "&7A rare lucky crop that"
+      - "&7appears when harvesting!"
+    message: "&2[FarmContest] &a✨ Golden Crop! &a+{points} pts &7(x{multiplier}) &e- {crop}"
+    announce_lucky_crop: true
+    announce_message: "&2[FarmContest] &a✨ Lucky Crop: &f{crop}&a! Harvest for a chance at x{multiplier} points!"
+
+  lucky_mob:
+    enabled: true
+    chance: 0.05
+    multiplier: 2.0
+    message: "&2[FarmContest] &a✨ Lucky Creature! &a+{points} pts &7(x{multiplier}) &e- {mob}"
+    announce_lucky_mob: true
+    announce_message: "&2[FarmContest] &a✨ Lucky Creature: &f{mob}&a! Kill for a chance at x{multiplier} points!"
+
+  weather_buff:
+    enabled: true
+    rain_boost:
+      multiplier: 1.2
+      crops: ["WHEAT", "CARROT", "POTATO", "BEETROOT"]
+      message: "&2[FarmContest] &b☔ Rain Buff! &a+{points} pts &7(x{multiplier}) &e- {crop}"
+    sun_boost:
+      multiplier: 1.2
+      crops: ["MELON", "PUMPKIN", "SUGAR_CANE", "CACTUS"]
+      message: "&2[FarmContest] &e☀ Sun Buff! &a+{points} pts &7(x{multiplier}) &e- {crop}"
+      time_start: 5000
+      time_end: 7000
+
+# ──────────────────────────────────────────────────────────────────
+# 9b. MEDAL SYSTEM
+#     Medals based on absolute score, independent of rank
+# ──────────────────────────────────────────────────────────────────
+medal-system:
+  enabled: true
+  tiers:
+    - { id: "gold",   threshold: 1000, display: "&6Gold" }
+    - { id: "silver", threshold: 500,  display: "&fSilver" }
+    - { id: "bronze", threshold: 200,  display: "&cBronze" }
+  message: "&2[FarmContest] &a✨ You received a &e{medal} medal &awith &e{points} points&a!"
+
+# ──────────────────────────────────────────────────────────────────
+# 10. [SINGLE] INDIVIDUAL REWARDS
+#     Only active when contest.community-scope: false
+#
+#     Console commands executed when a contest ends.
+#     Placeholder: {player} → name of the rewarded player
+# ──────────────────────────────────────────────────────────────────
+rewards:
+  top1:
+    - "eco give {player} 100000"
+    - "give {player} diamond 5"
+  top2:
+    - "eco give {player} 50000"
+    - "give {player} diamond 3"
+  top3:
+    - "eco give {player} 25000"
+    - "give {player} diamond 1"
+  participate:
+    - "eco give {player} 5000"
+  medal-gold:
+    - "eco give {player} 20000"
+  medal-silver:
+    - "eco give {player} 10000"
+  medal-bronze:
+    - "eco give {player} 5000"
+
+# ──────────────────────────────────────────────────────────────────
+# 11. DATA SAVING
+# ──────────────────────────────────────────────────────────────────
+data:
+  save-interval: "5m"
+  reset-points-after: true
+
+# ──────────────────────────────────────────────────────────────────
+# 12. PLACEHOLDERAPI FALLBACK VALUES
+# ──────────────────────────────────────────────────────────────────
+placeholder_fallback:
+  time_left: "N/A"
+  top_name: "None"
+  top_points: "0"
+  player_points: "0"
